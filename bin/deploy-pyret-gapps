@@ -1,0 +1,91 @@
+#!/bin/bash
+
+GULP_TASK="upload-latest"
+SCRIPT_ENV="dev"
+RENEW_AUTH=false
+
+# Directory of this script
+DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+
+# Used to ensure that flags only used once
+ENV_SET=false
+REAUTH_SET=false
+
+# http://stackoverflow.com/questions/2990414/echo-that-outputs-to-stderr
+echoerr() { echo "$@" 1>&2; }
+
+usage() {
+    echo "usage: $0 [-e env | --env env] [-f | --force-reauth]"
+    echo -e "\t[--env env | -e env]: The environment being deployed to. This"
+    echo -e "\t                      might do things such as modify permissions"
+    echo -e "\t                      to be appropriate for the given deployment."
+    echo -e "\t                      Valid environments are:"
+    echo -e "\t                        'dev',  'd': Development"
+    echo -e "\t                        'prod', 'p': Production"
+    echo -e "\t[--force-reauth | -f]: Renew Google authentication (Shouldn't be needed)"
+    echo -e "\t[--help | -h]: Show this help message"
+}
+
+assert_unique() {
+    if [ "$1" = true ]; then
+        echoerr "Cannot repeat flag: $2"
+        usage
+        exit 1
+    fi
+}
+
+validate_env() {
+    case "$1" in
+        dev | d)
+            SCRIPT_ENV="dev"
+            ;;
+        prod | p)
+            SCRIPT_ENV="prod"
+            ;;
+        *)
+            echoerr "Invalid environment: $1"
+            usage
+            exit 1
+            ;;
+    esac
+}
+
+while [ ! $# -eq 0 ]
+do
+    case "$1" in
+        --env | -e)
+            assert_unique "$ENV_SET" "$1"
+            ENV_SET=true
+            if [ $# -eq 1 ]; then
+                echoerr "Missing required argument to $1"
+                usage
+                exit 1
+            fi
+            # Shift to provided env
+            shift
+            validate_env "$1"
+            ;;
+        --help | -h)
+            usage
+            exit 0
+            ;;
+        --force-reauth | -f)
+            assert_unique "$REAUTH_SET" "$1"
+            REAUTH_SET=true
+            RENEW_AUTH=true
+            ;;
+        *)
+            echoerr "Invalid argument: $1"
+            usage
+            exit 1
+            ;;
+    esac
+    shift
+done
+
+if [ "$RENEW_AUTH" = true ]; then
+    rm ~/.gapps
+fi
+
+# Run Gulp
+cd "$DIR/../" && exec gulp upload-latest --env "$SCRIPT_ENV"

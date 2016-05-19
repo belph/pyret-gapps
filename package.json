@@ -1,0 +1,33 @@
+{
+  "name": "pyret-gapps",
+  "version": "0.0.1",
+  "description": "Google Apps Scripts for Pyret",
+  "engines": {
+    "npm": "2.1.x"
+  },
+  "dependencies": {
+    "node-google-apps-script": "^1.1.5",
+    "minimist": "^1.2.0",
+    "del": "^2.2.0",
+    "gulp": "^3.9.1",
+    "gulp-debug": "^2.1.2",
+    "gulp-jshint": "^1.12.0",
+    "gulp-rename": "^1.2.2",
+    "gulp-shell": "^0.5.1",
+    "jshint-stylish": "^2.0.1",
+    "vinyl-paths": "^2.1.0",
+    "requirejs": "2.1.14",
+    "q": "~1.0.1",
+    "shelljs": "^0.7.0"
+  },
+  "devDependencies": {
+    "dotenv": "^2.0.0",
+    "gulp-mustache": "^2.2.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/belph/pyret-gapps"
+  },
+  "author": "Philip Blair",
+  "license": "Apache-2.0"
+}

@@ -1,0 +1,7 @@
+{"installed": {
+  "client_id": "{{ GOOGLE_APP_CLIENT_ID }}",
+  "client_secret": "{{ GOOGLE_APP_CLIENT_SECRET }}",
+  "redirect_uris": ["urn:ietf:wg:oauth:2.0:oob"]},
+ "path": "src",
+ "fileId": "{{ GOOGLE_SCRIPT_ID }}"
+}
