@@ -18,9 +18,7 @@
     "vinyl-paths": "^2.1.0",
     "requirejs": "2.1.14",
     "q": "~1.0.1",
-    "shelljs": "^0.7.0"
-  },
-  "devDependencies": {
+    "shelljs": "^0.7.0",
     "dotenv": "^2.0.0",
     "gulp-mustache": "^2.2.0"
   },
