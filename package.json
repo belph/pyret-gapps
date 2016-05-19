@@ -29,7 +29,7 @@
     "url": "git://github.com/belph/pyret-gapps"
   },
   "bin": {
-    "deploy-pyret-gapps": "./deploy-pyret-gapps"
+    "deploy-pyret-gapps": "./bin/deploy-pyret-gapps"
   },
   "author": "Philip Blair",
   "license": "Apache-2.0"
