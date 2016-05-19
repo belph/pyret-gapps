@@ -32,7 +32,15 @@ function getUserHome() {
 }
 
 function fileExists(path) {
-  return (fs.statSync(path) != null);
+  try {
+    return (fs.statSync(path) != null);
+  } catch (e) {
+    if (e.code === 'ENOENT') {
+      return false;
+    } else {
+      throw e;
+    }
+  }
 }
 
 function buildCommand() {
@@ -47,10 +55,10 @@ function buildCommand() {
 dotenv.config({silent: true});
 
 var templateVars = {
-  GOOGLE_APP_CLIENT_ID: process.env.GOOGLE_APP_CLIENT_ID
-    || process.env.npm_package_config_google_app_client_id,
-  GOOGLE_APP_CLIENT_SECRET: process.env.GOOGLE_APP_CLIENT_SECRET
-    || process.env.npm_package_config_google_app_client_secret,
+  GOOGLE_APP_CLIENT_ID: process.env.GOOGLE_CLIENT_ID
+    || process.env.npm_package_config_google_client_id,
+  GOOGLE_APP_CLIENT_SECRET: process.env.GOOGLE_CLIENT_SECRET
+    || process.env.npm_package_config_google_client_secret,
   GOOGLE_SCRIPT_ID: process.env.GOOGLE_SCRIPT_ID
     || process.env.npm_package_config_google_script_id
 }
